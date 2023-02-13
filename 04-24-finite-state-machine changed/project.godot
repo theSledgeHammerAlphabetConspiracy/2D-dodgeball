@@ -10,9 +10,9 @@ config_version=4
 
 [application]
 
-config/name="2Dbeatem up modified in github folder"
+config/name="2D dodgeball"
 run/main_scene="res://Demo.tscn"
-config/icon="res://icon.png"
+config/icon="res://assets/dodgeball.png"
 
 [autoload]
 
