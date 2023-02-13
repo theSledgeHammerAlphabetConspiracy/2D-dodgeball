@@ -1,0 +1,239 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://stuff i added/PunchingBagHitstunGr.gd" type="Script" id=1]
+[ext_resource path="res://stuff i added/PunchingBagStateMachine.gd" type="Script" id=2]
+[ext_resource path="res://stuff i added/PunchingBagIdle.gd" type="Script" id=3]
+[ext_resource path="res://stuff i added/PunchingBagHitstop.gd" type="Script" id=4]
+[ext_resource path="res://stuff i added/punching bag.gd" type="Script" id=5]
+[ext_resource path="res://player/states/debug/state-name-displayer.gd" type="Script" id=6]
+[ext_resource path="res://stuff i added/PunchingBagBlowback.gd" type="Script" id=7]
+[ext_resource path="res://stuff i added/PunchingBagWallbounce.gd" type="Script" id=8]
+[ext_resource path="res://player/shadow.png" type="Texture" id=9]
+[ext_resource path="res://stuff i added/PunchingBagHitstunA.gd" type="Script" id=10]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6, 6 )
+
+[sub_resource type="Gradient" id=2]
+colors = PoolColorArray( 0.671875, 0.627258, 0.627258, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+width = 60
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 4, 4 )
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:knockback_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyPivot/pbsprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("StateMachine/Wallbounce:vertical_speed")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("StateMachine/Wallbounce:GRAVITY")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1600.0 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "blowback"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:knockback_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 3,
+"values": [  ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "hitstop"
+length = 0.2
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyPivot/pbsprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.183333, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "hitstunA"
+
+[sub_resource type="Animation" id=6]
+resource_name = "hitstunGr"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:knockback_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 3,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "idle"
+
+[sub_resource type="Animation" id=10]
+resource_name = "wallbounce"
+length = 1.5
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:knockback_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.5, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 300.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("StateMachine/Wallbounce:vertical_speed")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.5, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 10.0, 0.0, 0.0, 120.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("StateMachine/Wallbounce:GRAVITY")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0.0, 0.0, 1600.0 ]
+}
+
+[node name="punching bag" type="KinematicBody2D"]
+scale = Vector2( 5, 2.5 )
+collision_mask = 5
+script = ExtResource( 5 )
+
+[node name="VBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="Area2D" type="CollisionShape2D" parent="VBox"]
+shape = SubResource( 1 )
+
+[node name="BodyPivot" type="Position2D" parent="."]
+
+[node name="pbsprite" type="Sprite" parent="BodyPivot"]
+position = Vector2( 0, -30 )
+rotation = -1.5708
+scale = Vector2( 1, 10 )
+texture = SubResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 4 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 2 )
+START_STATE = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 3 )
+
+[node name="Hitstop" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+
+[node name="HitstunGr" type="Node" parent="StateMachine"]
+script = ExtResource( 1 )
+
+[node name="HitstunA" type="Node" parent="StateMachine"]
+script = ExtResource( 10 )
+
+[node name="Blowback" type="Node" parent="StateMachine"]
+script = ExtResource( 7 )
+
+[node name="Wallbounce" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 8 )
+anims/blowback = SubResource( 9 )
+anims/hitstop = SubResource( 5 )
+anims/hitstunA = SubResource( 11 )
+anims/hitstunGr = SubResource( 6 )
+anims/idle = SubResource( 7 )
+anims/wallbounce = SubResource( 10 )
+
+[node name="StateNameDisplayer" type="Label" parent="."]
+margin_left = -19.8
+margin_top = -80.0
+margin_right = 20.2
+margin_bottom = -66.0
+script = ExtResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.2, 0.2 )
+z_index = -1
+texture = ExtResource( 9 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine" method="_on_animation_finished"]

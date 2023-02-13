@@ -1,0 +1,253 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://player_v2/PlayerV2.tscn" type="PackedScene" id=1]
+[ext_resource path="res://fonts/SourceCodePro-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://debug/ControlsPanel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://debug/Explanations.tscn" type="PackedScene" id=4]
+[ext_resource path="res://stuff i added/punching bag.tscn" type="PackedScene" id=5]
+[ext_resource path="res://mobile controls.png" type="Texture" id=6]
+[ext_resource path="res://stuff i added/from other projects/0037.png" type="Texture" id=7]
+[ext_resource path="res://stuff i added/from other projects/0036.png" type="Texture" id=8]
+[ext_resource path="res://stuff i added/from other projects/0038.png" type="Texture" id=9]
+[ext_resource path="res://stuff i added/from other projects/0035.png" type="Texture" id=10]
+[ext_resource path="res://stuff i added/from other projects/tile_0004.png" type="Texture" id=11]
+[ext_resource path="res://my scripts/Demo.gd" type="Script" id=12]
+[ext_resource path="res://debug/states-stack-displayer.gd" type="Script" id=13]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="Gradient" id=5]
+colors = PoolColorArray( 0, 0, 0, 1, 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
+width = 1250
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 5 )
+width = 530
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 20, 360 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 675, 20 )
+
+[sub_resource type="Gradient" id=3]
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+width = 59
+
+[node name="Demo" type="Node"]
+script = ExtResource( 12 )
+
+[node name="StatesStackDiplayer" type="Panel" parent="."]
+margin_right = 210.0
+margin_bottom = 170.0
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Title" type="Label" parent="StatesStackDiplayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -105.0
+margin_right = 399.0
+margin_bottom = 113.0
+custom_fonts/font = SubResource( 1 )
+text = "three hit attack string, the first and second are chargeable, the special is chargeable and aimable.  the third hit of the string blows back in the direction held when landed."
+valign = 1
+autowrap = true
+uppercase = true
+
+[node name="States" type="Label" parent="StatesStackDiplayer"]
+visible = false
+margin_left = 20.0
+margin_top = 50.0
+margin_right = 190.0
+margin_bottom = 170.0
+custom_fonts/font = SubResource( 1 )
+text = "Jump
+Test"
+align = 1
+
+[node name="Numbers" type="Label" parent="StatesStackDiplayer"]
+visible = false
+margin_left = 20.0
+margin_top = 50.0
+margin_right = 190.0
+margin_bottom = 170.0
+custom_fonts/font = SubResource( 1 )
+text = "1.
+2."
+
+[node name="ControlsPanel" parent="." instance=ExtResource( 3 )]
+
+[node name="Explanations" parent="." instance=ExtResource( 4 )]
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="PlayerV2" parent="YSort" instance=ExtResource( 1 )]
+
+[node name="punchbag" parent="YSort" instance=ExtResource( 5 )]
+position = Vector2( 815, 392 )
+
+[node name="northwall" type="Sprite" parent="YSort"]
+position = Vector2( 640, 185 )
+scale = Vector2( 1, 10 )
+texture = SubResource( 6 )
+
+[node name="eastwall" type="Sprite" parent="YSort"]
+position = Vector2( 1266, 445 )
+rotation = 1.5708
+scale = Vector2( 1, 10 )
+texture = SubResource( 7 )
+
+[node name="westwall" type="Sprite" parent="YSort"]
+position = Vector2( 15, 445 )
+rotation = 1.5708
+scale = Vector2( 1, 10 )
+texture = SubResource( 7 )
+
+[node name="southwall" type="Sprite" parent="YSort"]
+position = Vector2( 640, 705 )
+scale = Vector2( 1, 10 )
+texture = SubResource( 6 )
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2( 548, 14 )
+scale = Vector2( 1.5, 1.5 )
+normal = ExtResource( 6 )
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="normal" type="Node2D" parent="Node2D"]
+
+[node name="Vector2(-1, 0)" type="StaticBody2D" parent="Node2D/normal" groups=["wall"]]
+collision_mask = 0
+
+[node name="Vector2(-1,0)" type="CollisionShape2D" parent="Node2D/normal/Vector2(-1, 0)"]
+position = Vector2( 0, 360 )
+shape = SubResource( 8 )
+
+[node name="Vector2(1, 0)" type="StaticBody2D" parent="Node2D/normal" groups=["wall"]]
+collision_mask = 0
+
+[node name="Vector2(1,0)" type="CollisionShape2D" parent="Node2D/normal/Vector2(1, 0)"]
+position = Vector2( 1280, 360 )
+shape = SubResource( 8 )
+
+[node name="Vector2(0, 1)" type="StaticBody2D" parent="Node2D/normal" groups=["wall"]]
+collision_mask = 0
+
+[node name="Vector2(0,1)" type="CollisionShape2D" parent="Node2D/normal/Vector2(0, 1)"]
+position = Vector2( 640, 720 )
+shape = SubResource( 2 )
+
+[node name="Vector2(0, -1)" type="StaticBody2D" parent="Node2D/normal" groups=["wall"]]
+collision_mask = 0
+
+[node name="Vector2(0,-1)" type="CollisionShape2D" parent="Node2D/normal/Vector2(0, -1)"]
+position = Vector2( 640, 170 )
+shape = SubResource( 2 )
+
+[node name="blowback" type="Node2D" parent="Node2D"]
+
+[node name="Vector2(-1, 0)" type="StaticBody2D" parent="Node2D/blowback" groups=["wall"]]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Vector2(-1,0)" type="CollisionShape2D" parent="Node2D/blowback/Vector2(-1, 0)"]
+position = Vector2( -20, 360 )
+shape = SubResource( 8 )
+
+[node name="Vector2(1, 0)" type="StaticBody2D" parent="Node2D/blowback" groups=["wall"]]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Vector2(1,0)" type="CollisionShape2D" parent="Node2D/blowback/Vector2(1, 0)"]
+position = Vector2( 1300, 360 )
+shape = SubResource( 8 )
+
+[node name="Vector2(0, 1)" type="StaticBody2D" parent="Node2D/blowback" groups=["wall"]]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Vector2(0,1)" type="CollisionShape2D" parent="Node2D/blowback/Vector2(0, 1)"]
+position = Vector2( 640, 740 )
+shape = SubResource( 2 )
+
+[node name="Vector2(0, -1)" type="StaticBody2D" parent="Node2D/blowback" groups=["wall"]]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Vector2(0,-1)" type="CollisionShape2D" parent="Node2D/blowback/Vector2(0, -1)"]
+position = Vector2( 640, 150 )
+shape = SubResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="Node2D"]
+anchor_mode = 0
+current = true
+
+[node name="mobile" type="Camera2D" parent="Node2D"]
+position = Vector2( 0, 170 )
+anchor_mode = 0
+
+[node name="Node2D" type="Node2D" parent="Node2D/mobile"]
+position = Vector2( 133.5, 475 )
+
+[node name="up" type="TouchScreenButton" parent="Node2D/mobile/Node2D"]
+position = Vector2( 34.5, 108 )
+scale = Vector2( 5, 4 )
+normal = ExtResource( 10 )
+action = "move_up1"
+
+[node name="down" type="TouchScreenButton" parent="Node2D/mobile/Node2D"]
+position = Vector2( 37.5, 175 )
+scale = Vector2( 5, 4 )
+normal = ExtResource( 7 )
+action = "move_down1"
+
+[node name="right" type="TouchScreenButton" parent="Node2D/mobile/Node2D"]
+position = Vector2( 128.5, 174 )
+scale = Vector2( 5, 4 )
+normal = ExtResource( 8 )
+action = "move_right1"
+
+[node name="left" type="TouchScreenButton" parent="Node2D/mobile/Node2D"]
+position = Vector2( -47.5, 181 )
+scale = Vector2( 5, 4 )
+normal = ExtResource( 9 )
+action = "move_left1"
+
+[node name="A" type="TouchScreenButton" parent="Node2D/mobile/Node2D"]
+position = Vector2( 982.5, 134 )
+scale = Vector2( 6, 6 )
+normal = ExtResource( 11 )
+action = "stringA1"
+
+[node name="sp" type="TouchScreenButton" parent="Node2D/mobile/Node2D"]
+position = Vector2( 876.5, 134 )
+scale = Vector2( 6, 6 )
+normal = ExtResource( 11 )
+action = "special1"
+
+[node name="jump" type="TouchScreenButton" parent="Node2D/mobile/Node2D"]
+position = Vector2( 768.5, 134 )
+scale = Vector2( 6, 6 )
+normal = ExtResource( 11 )
+action = "jump1"
+
+[node name="control board" type="Sprite" parent="Node2D/mobile/Node2D"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 497.5, 175 )
+scale = Vector2( 22.155, 140 )
+z_index = -1
+texture = SubResource( 4 )
+
+[connection signal="pressed" from="TouchScreenButton" to="." method="_on_TouchScreenButton_pressed"]
