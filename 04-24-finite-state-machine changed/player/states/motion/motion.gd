@@ -2,6 +2,10 @@
 extends "../state.gd"
 
 func handle_input(event):
+	#if ctrl == 1 and hasball == true else "catch"
+	if event.is_action_pressed("B"+owner.player_team):
+		#emit_signal("finished", "throw")
+		emit_signal("finished", "catch")
 	#this whole thing needs to be moved to the collision system
 	if event.is_action_pressed("simulate_damage"+owner.player_team):
 		#change the hitstop stun_type here
@@ -12,9 +16,6 @@ func handle_input(event):
 		#this is suppose to be in the get hit state and set in the VBox
 		#attacker, damage, kb_D, kb_A= 1200, type=0, effect=null)
 		owner.take_damage(self, 10,Vector2(-owner.get_node("BodyPivot").get_scale().x,0),2000,6)
-		#remove this if no issues after a bit
-		#owner.knockback_direction = Vector2(-owner.get_node("BodyPivot").get_scale().x,0)
-		#emit_signal("finished", "hitstop")
 #
 func get_input_direction():
 	var input_direction = Vector2()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=130 format=2]
+[gd_scene load_steps=143 format=2]
 
 [ext_resource path="res://player_v2/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://player_v2/player_state_machine.gd" type="Script" id=2]
@@ -39,6 +39,10 @@
 [ext_resource path="res://player/states/combat/WallBounce.gd" type="Script" id=37]
 [ext_resource path="res://assets/machosprites/airattack.png" type="Texture" id=38]
 [ext_resource path="res://player/states/combat/airattack.gd" type="Script" id=39]
+[ext_resource path="res://assets/machosprites/catch.png" type="Texture" id=40]
+[ext_resource path="res://assets/machosprites/throw.png" type="Texture" id=41]
+[ext_resource path="res://player/states/combat/Throw.gd" type="Script" id=42]
+[ext_resource path="res://player/states/combat/Catch.gd" type="Script" id=43]
 
 [sub_resource type="Animation" id=5]
 length = 0.001
@@ -233,7 +237,7 @@ tracks/15/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ true ]
+"values": [ false ]
 }
 tracks/16/type = "value"
 tracks/16/path = NodePath("StateMachine/Special:locked_speed")
@@ -330,6 +334,30 @@ tracks/23/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 1600.0 ]
+}
+tracks/24/type = "value"
+tracks/24/path = NodePath("StateMachine/Throw:chargeable")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/25/type = "value"
+tracks/25/path = NodePath("StateMachine/Catch:chargeable")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=86]
@@ -436,6 +464,47 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=99]
+resource_name = "catch"
+length = 0.183333
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyPivot/AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "catch" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyPivot/AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.0666667 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("StateMachine/Catch:chargeable")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.05, 0.0666667 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -1089,6 +1158,47 @@ tracks/6/keys = {
 "values": [ Vector2( 25, 25 ) ]
 }
 
+[sub_resource type="Animation" id=91]
+resource_name = "throw"
+length = 0.4
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyPivot/AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "throw" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyPivot/AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.166667, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 0, 2, 3, 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("StateMachine/Throw:chargeable")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+
 [sub_resource type="Animation" id=56]
 resource_name = "upper"
 length = 0.433333
@@ -1328,6 +1438,16 @@ region = Rect2( 360, 0, 180, 190 )
 flags = 4
 atlas = ExtResource( 38 )
 region = Rect2( 540, 0, 180, 190 )
+
+[sub_resource type="AtlasTexture" id=92]
+flags = 4
+atlas = ExtResource( 40 )
+region = Rect2( 0, 0, 180, 190 )
+
+[sub_resource type="AtlasTexture" id=93]
+flags = 4
+atlas = ExtResource( 40 )
+region = Rect2( 180, 0, 180, 190 )
 
 [sub_resource type="AtlasTexture" id=9]
 flags = 4
@@ -1589,6 +1709,31 @@ flags = 4
 atlas = ExtResource( 29 )
 region = Rect2( 1080, 0, 180, 190 )
 
+[sub_resource type="AtlasTexture" id=94]
+flags = 4
+atlas = ExtResource( 41 )
+region = Rect2( 0, 0, 180, 190 )
+
+[sub_resource type="AtlasTexture" id=95]
+flags = 4
+atlas = ExtResource( 41 )
+region = Rect2( 180, 0, 180, 190 )
+
+[sub_resource type="AtlasTexture" id=96]
+flags = 4
+atlas = ExtResource( 41 )
+region = Rect2( 360, 0, 180, 190 )
+
+[sub_resource type="AtlasTexture" id=97]
+flags = 4
+atlas = ExtResource( 41 )
+region = Rect2( 540, 0, 180, 190 )
+
+[sub_resource type="AtlasTexture" id=98]
+flags = 4
+atlas = ExtResource( 41 )
+region = Rect2( 720, 0, 180, 190 )
+
 [sub_resource type="AtlasTexture" id=77]
 flags = 4
 atlas = ExtResource( 30 )
@@ -1666,6 +1811,11 @@ animations = [ {
 "name": "airattack",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 92 ), SubResource( 93 ) ],
+"loop": true,
+"name": "catch",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 9 ) ],
 "loop": true,
 "name": "hitstunA",
@@ -1704,6 +1854,11 @@ animations = [ {
 "frames": [ SubResource( 70 ), SubResource( 71 ), SubResource( 72 ), SubResource( 73 ), SubResource( 74 ), SubResource( 75 ), SubResource( 76 ) ],
 "loop": true,
 "name": "shovel",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 94 ), SubResource( 95 ), SubResource( 96 ), SubResource( 97 ), SubResource( 98 ) ],
+"loop": true,
+"name": "throw",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 77 ), SubResource( 78 ), SubResource( 79 ), SubResource( 80 ), SubResource( 81 ), SubResource( 82 ) ],
@@ -1785,7 +1940,6 @@ script = ExtResource( 27 )
 
 [node name="Special" type="Node" parent="StateMachine"]
 script = ExtResource( 35 )
-chargeable = true
 advance = true
 
 [node name="Blowback" type="Node" parent="StateMachine"]
@@ -1797,10 +1951,18 @@ script = ExtResource( 37 )
 [node name="AirAttack" type="Node" parent="StateMachine"]
 script = ExtResource( 39 )
 
+[node name="Throw" type="Node" parent="StateMachine"]
+script = ExtResource( 42 )
+
+[node name="Catch" type="Node" parent="StateMachine"]
+script = ExtResource( 43 )
+chargeable = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 5 )
 anims/airattack = SubResource( 86 )
 anims/blowback = SubResource( 84 )
+anims/catch = SubResource( 99 )
 anims/hitstop = SubResource( 2 )
 anims/hitstunA = SubResource( 7 )
 anims/hitstunGr = SubResource( 6 )
@@ -1812,6 +1974,7 @@ anims/knockdown = SubResource( 8 )
 anims/lowkick = SubResource( 53 )
 anims/overhead = SubResource( 54 )
 anims/shovel = SubResource( 55 )
+anims/throw = SubResource( 91 )
 anims/upper = SubResource( 56 )
 anims/walk = SubResource( 3 )
 anims/wallbounce = SubResource( 85 )

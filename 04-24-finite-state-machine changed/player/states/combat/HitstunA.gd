@@ -69,8 +69,9 @@ func update(delta):
 	#update_look_direction(input_direction)
 
 	#move_horizontally(delta, input_direction)
-	animate_jump_height(delta)
-	if height <= 0.0:
+	vertical_speed -= GRAVITY * delta
+	owner.animate_jump_height(delta,vertical_speed)
+	if owner.height <= 0.0:
 		##################################################this needs to go to the knockdown state
 		emit_signal("finished", "knockdown")
 		
@@ -88,13 +89,13 @@ func move_horizontally(amount, direction):
 	direction = direction * Vector2(1,.5)
 	owner.move_and_slide(direction*amount)
 
-func animate_jump_height(delta):
-	#print(height)
-	#height -= .01
-	# i have no idea why this works but it does it worked because the previous state was air and it was defaulting to it
-	#pass
-	vertical_speed -= GRAVITY * delta
-	height += vertical_speed * delta
-	height = max(0.0,height)
-
-	owner.get_node("BodyPivot").position.y = -height
+#func animate_jump_height(delta):
+#	#print(height)
+#	#height -= .01
+#	# i have no idea why this works but it does it worked because the previous state was air and it was defaulting to it
+#	#pass
+#	vertical_speed -= GRAVITY * delta
+#	owner.height += vertical_speed * delta
+#	owner.height = max(0.0,owner.height)
+#
+#	owner.get_node("BodyPivot").position.y = -owner.height

@@ -21,7 +21,10 @@ func _ready():
 		"string3":$String3,
 		"special":$Special,
 		
-		"airattack":$AirAttack
+		"airattack":$AirAttack,
+		
+		"throw":$Throw,
+		"catch":$Catch
 	}
 
 func _change_state(state_name):

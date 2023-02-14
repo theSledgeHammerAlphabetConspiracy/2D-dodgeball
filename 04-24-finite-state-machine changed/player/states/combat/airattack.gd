@@ -46,18 +46,19 @@ func enter():
 func update(delta):
 	# the jump is already normalized this is gettin stupid and hacky
 	var collision_info = move_horizontally(h_speed)
-
-	animate_jump_height(delta)
-	if height <= 0.0:
+	
+	vertical_speed -= GRAVITY * delta
+	owner.animate_jump_height(delta,vertical_speed)
+	if owner.height <= 0.0:
 		emit_signal("finished", "jumpland")
 		
 func move_horizontally(amount):#this is different cause the jump already passes in a normalized amount
 	#direction = direction * Vector2(1,.5)
 	owner.move_and_slide(amount)
 
-func animate_jump_height(delta):
-	vertical_speed -= GRAVITY * delta
-	height += vertical_speed * delta
-	height = max(0.0,height)
-
-	owner.get_node("BodyPivot").position.y = -height
+#func animate_jump_height(delta):
+#	vertical_speed -= GRAVITY * delta
+#	height += vertical_speed * delta
+#	height = max(0.0,height)
+#
+#	owner.get_node("BodyPivot").position.y = -height

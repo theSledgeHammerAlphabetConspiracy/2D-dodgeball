@@ -19,6 +19,7 @@ var horizontal_speed = 0.0
 var horizontal_velocity = Vector2()
 
 var vertical_speed = 0.0
+
 var height = 0.0
 
 
@@ -30,6 +31,7 @@ func _init():
 	physics_type = 1#air physics for gethit
 
 func initialize(speed, velocity):#this is called in the state machine and that is wrong it probably should be called on 
+	print('f')
 	#exiting the jump start animation/state
 	horizontal_speed = speed
 	max_horizontal_speed = speed if speed > 0.0 else BASE_MAX_HORIZONTAL_SPEED
@@ -48,6 +50,7 @@ func enter():
 	horizontal_velocity = enter_velocity if input_direction else Vector2()
 	#print(input_direction)
 	
+	#owner.height = -5
 	vertical_speed = 600.0
 
 	owner.get_node("AnimationPlayer").play("jump")
@@ -58,10 +61,11 @@ func update(delta):
 	#update_look_direction(input_direction)
 
 	move_horizontally(delta, input_direction)
-	animate_jump_height(delta)
-	if height <= 0.0:
+	
+	vertical_speed -= GRAVITY * delta
+	owner.animate_jump_height(delta,vertical_speed)
+	if owner.height <= 0.0:
 		emit_signal("finished", "jumpland")
-		#emit_signal("finished", "previous")
 	if Input.is_action_just_pressed("stringA"+owner.player_team):
 		emit_signal("finished", "airattack")
 	
@@ -79,12 +83,12 @@ func move_horizontally(delta, direction):
 	owner.move_and_slide(horizontal_velocity*Vector2(1,.5))
 	#print(horizontal_velocity)
 
-func animate_jump_height(delta):
-	vertical_speed -= GRAVITY * delta
-	height += vertical_speed * delta
-	height = max(0.0, height)
-
-	owner.get_node("BodyPivot").position.y = -height
+#func animate_jump_height(delta):
+#	vertical_speed -= GRAVITY * delta
+#	owner.height += vertical_speed * delta
+#	owner.height = max(0.0, owner.height)
+#
+#	owner.get_node("BodyPivot").position.y = -owner.height
 	
-func exit():
-	height = 0.0
+#func exit():
+#	height = 0.0

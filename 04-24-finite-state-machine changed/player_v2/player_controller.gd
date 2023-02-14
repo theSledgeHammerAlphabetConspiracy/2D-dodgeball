@@ -17,6 +17,8 @@ onready var attack_DMG_amount: int = 0
 
 var string_series: int = 0
 
+var height: float = 0.0
+
 func _ready():
 	add_to_group("player"+player_team)
 	#print(get_tree().get_nodes_in_group('player1'))
@@ -47,6 +49,14 @@ func _on_ABox_area_entered(area):
 	$AnimationPlayer.stop(false)
 	$Timer.start()
 	area.owner.take_damage(self, attack_DMG_amount, attack_KB_dir, attack_KB_amount, attack_KB_type)
+
+func animate_jump_height(delta,vertical_speed):
+	#print(height)
+	#vertical_speed -= GRAVITY * delta
+	height += vertical_speed * delta
+	height = max(0.0,height)
+
+	get_node("BodyPivot").position.y = -height
 	
 func _on_Timer_timeout():
 	#print("hitstop over")
