@@ -1,4 +1,4 @@
-[gd_scene load_steps=143 format=2]
+[gd_scene load_steps=145 format=2]
 
 [ext_resource path="res://player_v2/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://player_v2/player_state_machine.gd" type="Script" id=2]
@@ -43,6 +43,9 @@
 [ext_resource path="res://assets/machosprites/throw.png" type="Texture" id=41]
 [ext_resource path="res://player/states/combat/Throw.gd" type="Script" id=42]
 [ext_resource path="res://player/states/combat/Catch.gd" type="Script" id=43]
+[ext_resource path="res://assets/placeholder/body.png" type="Texture" id=44]
+[ext_resource path="res://assets/placeholder/handR.png" type="Texture" id=45]
+[ext_resource path="res://assets/placeholder/hand.png" type="Texture" id=46]
 
 [sub_resource type="Animation" id=5]
 length = 0.001
@@ -264,7 +267,7 @@ tracks/17/keys = {
 "values": [ true ]
 }
 tracks/18/type = "value"
-tracks/18/path = NodePath("APivot/ABox/CollisionShape2D:disabled")
+tracks/18/path = NodePath("StateMachine/Knockdown:get_up_roll_speed")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/imported = false
@@ -273,10 +276,10 @@ tracks/18/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ true ]
+"values": [ 0 ]
 }
 tracks/19/type = "value"
-tracks/19/path = NodePath("APivot/ABox/CollisionShape2D:shape:extents")
+tracks/19/path = NodePath(".:knockback_amount")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/imported = false
@@ -285,10 +288,10 @@ tracks/19/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 25, 25 ) ]
+"values": [ 0.0 ]
 }
 tracks/20/type = "value"
-tracks/20/path = NodePath("StateMachine/Knockdown:get_up_roll_speed")
+tracks/20/path = NodePath("StateMachine/WallBounce:vertical_speed")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/imported = false
@@ -297,10 +300,10 @@ tracks/20/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0 ]
+"values": [ 0.0 ]
 }
 tracks/21/type = "value"
-tracks/21/path = NodePath(".:knockback_amount")
+tracks/21/path = NodePath("StateMachine/WallBounce:GRAVITY")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/imported = false
@@ -309,10 +312,10 @@ tracks/21/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ 1600.0 ]
 }
 tracks/22/type = "value"
-tracks/22/path = NodePath("StateMachine/WallBounce:vertical_speed")
+tracks/22/path = NodePath("StateMachine/Throw:chargeable")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/imported = false
@@ -321,39 +324,15 @@ tracks/22/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ false ]
 }
 tracks/23/type = "value"
-tracks/23/path = NodePath("StateMachine/WallBounce:GRAVITY")
+tracks/23/path = NodePath("StateMachine/Catch:chargeable")
 tracks/23/interp = 1
 tracks/23/loop_wrap = true
 tracks/23/imported = false
 tracks/23/enabled = true
 tracks/23/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1600.0 ]
-}
-tracks/24/type = "value"
-tracks/24/path = NodePath("StateMachine/Throw:chargeable")
-tracks/24/interp = 1
-tracks/24/loop_wrap = true
-tracks/24/imported = false
-tracks/24/enabled = true
-tracks/24/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ false ]
-}
-tracks/25/type = "value"
-tracks/25/path = NodePath("StateMachine/Catch:chargeable")
-tracks/25/interp = 1
-tracks/25/loop_wrap = true
-tracks/25/imported = false
-tracks/25/enabled = true
-tracks/25/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -413,30 +392,6 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("APivot/ABox/CollisionShape2D:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("APivot/ABox/CollisionShape2D:shape:extents")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 20, 25 ) ]
 }
 
 [sub_resource type="Animation" id=84]
@@ -955,30 +910,6 @@ tracks/3/keys = {
 "update": 1,
 "values": [ true, false ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("APivot/ABox/CollisionShape2D:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.1, 0.15 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("APivot/ABox/CollisionShape2D:shape:extents")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 20, 25 ) ]
-}
 
 [sub_resource type="Animation" id=54]
 resource_name = "overhead"
@@ -1044,30 +975,6 @@ tracks/4/keys = {
 "update": 0,
 "values": [ 300.0 ]
 }
-tracks/5/type = "value"
-tracks/5/path = NodePath("APivot/ABox/CollisionShape2D:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.2, 0.283333 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("APivot/ABox/CollisionShape2D:shape:extents")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 35, 25 ) ]
-}
 
 [sub_resource type="Animation" id=55]
 resource_name = "shovel"
@@ -1132,30 +1039,6 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ false, false, true, false ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("APivot/ABox/CollisionShape2D:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.15, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("APivot/ABox/CollisionShape2D:shape:extents")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 25, 25 ) ]
 }
 
 [sub_resource type="Animation" id=91]
@@ -1288,30 +1171,6 @@ tracks/6/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ false, true, false ]
-}
-tracks/7/type = "value"
-tracks/7/path = NodePath("APivot/ABox/CollisionShape2D:disabled")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"times": PoolRealArray( 0, 0.183333, 0.233333 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("APivot/ABox/CollisionShape2D:shape:extents")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
-"times": PoolRealArray( 0.183333 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 20, 25 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -1877,9 +1736,6 @@ size = 20
 use_filter = true
 font_data = ExtResource( 15 )
 
-[sub_resource type="RectangleShape2D" id=83]
-extents = Vector2( 25, 25 )
-
 [node name="PlayerV2" type="KinematicBody2D"]
 position = Vector2( 628.826, 391.266 )
 collision_mask = 5
@@ -1992,9 +1848,26 @@ position = Vector2( 0, -58.8242 )
 texture = ExtResource( 10 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="BodyPivot"]
+visible = false
 position = Vector2( -5, -28 )
 frames = SubResource( 38 )
 animation = "idle"
+
+[node name="body" type="Sprite" parent="BodyPivot"]
+texture = ExtResource( 44 )
+offset = Vector2( 0, -55 )
+
+[node name="hands" type="Position2D" parent="BodyPivot/body"]
+position = Vector2( 48.174, -31.266 )
+rotation = -1.11499
+
+[node name="Sprite" type="Sprite" parent="BodyPivot/body/hands"]
+position = Vector2( 80, -20 )
+texture = ExtResource( 46 )
+
+[node name="Sprite2" type="Sprite" parent="BodyPivot/body/hands"]
+position = Vector2( -80, -20 )
+texture = ExtResource( 45 )
 
 [node name="WeaponPivot" type="Position2D" parent="."]
 visible = false
@@ -2034,20 +1907,7 @@ script = ExtResource( 16 )
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2
 
-[node name="APivot" type="Position2D" parent="."]
-
-[node name="ABox" type="Area2D" parent="APivot"]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="APivot/ABox"]
-position = Vector2( 55.174, -7.26599 )
-shape = SubResource( 83 )
-disabled = true
-
 [connection signal="state_changed" from="StateMachine" to="WeaponPivot/Offset/Sword" method="_on_StateMachine_state_changed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine" method="_on_animation_finished"]
 [connection signal="attack_finished" from="WeaponPivot/Offset/Sword" to="StateMachine/Attack" method="_on_Sword_attack_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
-[connection signal="area_entered" from="APivot/ABox" to="." method="_on_ABox_area_entered"]
