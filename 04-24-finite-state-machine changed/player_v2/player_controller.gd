@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 signal direction_changed(new_direction)#connected to the weapon pivot script
 
+export var cValue: int = 0
+
 export var player_team: String = "1"
 
 var look_direction = Vector2(1, 0) setget set_look_direction
@@ -58,6 +60,23 @@ func animate_jump_height(delta,vertical_speed):
 
 	get_node("BodyPivot").position.y = -height
 	
-func _on_Timer_timeout():
+func _on_Timer_timeout():#hitstop timer
 	#print("hitstop over")
 	$AnimationPlayer.play()
+
+
+
+	
+func _collision(ball):
+	if cValue == 0:
+		$StateMachine._change_state("hitstop")
+		#$AnimationPlayer.play("getHit")
+	elif cValue == 1:
+		ball.queue_free()
+	elif cValue == 2:
+		ball._bounce(get_global_position())
+	
+
+
+func _on_catchcooldown_timeout():
+	pass # Replace with function body.

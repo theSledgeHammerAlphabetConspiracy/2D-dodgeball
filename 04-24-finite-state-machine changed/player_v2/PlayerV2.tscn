@@ -1,4 +1,4 @@
-[gd_scene load_steps=145 format=2]
+[gd_scene load_steps=150 format=2]
 
 [ext_resource path="res://player_v2/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://player_v2/player_state_machine.gd" type="Script" id=2]
@@ -46,6 +46,188 @@
 [ext_resource path="res://assets/placeholder/body.png" type="Texture" id=44]
 [ext_resource path="res://assets/placeholder/handR.png" type="Texture" id=45]
 [ext_resource path="res://assets/placeholder/hand.png" type="Texture" id=46]
+
+[sub_resource type="Animation" id=100]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyPivot/handspivot/hands/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 80, -20 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyPivot/handspivot/hands/Sprite2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -80, -20 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyPivot/handspivot/hands/Sprite2:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BodyPivot/handspivot/hands/Sprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:cValue")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=101]
+resource_name = "catch"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyPivot/handspivot/hands/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.07 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 80, -20 ), Vector2( 26, 32 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyPivot/handspivot/hands/Sprite2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.07 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -80, -20 ), Vector2( -26, 32 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyPivot/handspivot/hands/Sprite2:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.07 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -90.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BodyPivot/handspivot/hands/Sprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.07 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 90.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:cValue")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.05, 0.13 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=102]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyPivot/handspivot/hands/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 80, -20 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyPivot/handspivot/hands/Sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyPivot/handspivot/hands/Sprite2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -80, -20 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BodyPivot/handspivot/hands/Sprite2:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=103]
+resource_name = "walk"
 
 [sub_resource type="Animation" id=5]
 length = 0.001
@@ -1731,13 +1913,15 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="RectangleShape2D" id=104]
+extents = Vector2( 20, 20 )
+
 [sub_resource type="DynamicFont" id=4]
 size = 20
 use_filter = true
 font_data = ExtResource( 15 )
 
 [node name="PlayerV2" type="KinematicBody2D"]
-position = Vector2( 628.826, 391.266 )
 collision_mask = 5
 script = ExtResource( 1 )
 __meta__ = {
@@ -1815,6 +1999,12 @@ script = ExtResource( 43 )
 chargeable = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 100 )
+anims/catch = SubResource( 101 )
+anims/idle = SubResource( 102 )
+anims/walk = SubResource( 103 )
+
+[node name="AnimationPlayerOLD" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 5 )
 anims/airattack = SubResource( 86 )
 anims/blowback = SubResource( 84 )
@@ -1854,20 +2044,30 @@ frames = SubResource( 38 )
 animation = "idle"
 
 [node name="body" type="Sprite" parent="BodyPivot"]
+scale = Vector2( 0.5, 0.5 )
+z_index = 1
 texture = ExtResource( 44 )
 offset = Vector2( 0, -55 )
 
-[node name="hands" type="Position2D" parent="BodyPivot/body"]
-position = Vector2( 48.174, -31.266 )
-rotation = -1.11499
+[node name="handspivot" type="Position2D" parent="BodyPivot"]
+position = Vector2( 0, -17 )
 
-[node name="Sprite" type="Sprite" parent="BodyPivot/body/hands"]
+[node name="hands" type="Position2D" parent="BodyPivot/handspivot"]
+rotation = -1.5708
+
+[node name="Sprite" type="Sprite" parent="BodyPivot/handspivot/hands"]
 position = Vector2( 80, -20 )
 texture = ExtResource( 46 )
 
-[node name="Sprite2" type="Sprite" parent="BodyPivot/body/hands"]
+[node name="Sprite2" type="Sprite" parent="BodyPivot/handspivot/hands"]
 position = Vector2( -80, -20 )
 texture = ExtResource( 45 )
+
+[node name="catchbox" type="Area2D" parent="BodyPivot/handspivot"]
+position = Vector2( 45, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyPivot/handspivot/catchbox"]
+shape = SubResource( 104 )
 
 [node name="WeaponPivot" type="Position2D" parent="."]
 visible = false
@@ -1907,7 +2107,12 @@ script = ExtResource( 16 )
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2
 
+[node name="catchcooldown" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
 [connection signal="state_changed" from="StateMachine" to="WeaponPivot/Offset/Sword" method="_on_StateMachine_state_changed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine" method="_on_animation_finished"]
 [connection signal="attack_finished" from="WeaponPivot/Offset/Sword" to="StateMachine/Attack" method="_on_Sword_attack_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="catchcooldown" to="." method="_on_catchcooldown_timeout"]

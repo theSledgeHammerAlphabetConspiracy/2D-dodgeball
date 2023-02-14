@@ -2,6 +2,8 @@ extends "res://player_v2/state_machine.gd"
 
 func _ready():
 	states_map = {
+		
+		
 		"attack": $Attack,#old not used 2/1
 		"idle": $Idle,
 		"move": $Move,
@@ -57,3 +59,5 @@ func _input(event):
 		_change_state("attack")
 		return
 	current_state.handle_input(event)
+
+
