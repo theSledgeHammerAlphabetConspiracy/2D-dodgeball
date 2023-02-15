@@ -167,6 +167,8 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_1="kinematic"
 2d_physics/layer_2="attacks"
 2d_physics/layer_3="blowbackonly"
+2d_physics/layer_5="team2 scanned layer"
+2d_physics/layer_6="team1 scanned layer"
 
 [rendering]
 

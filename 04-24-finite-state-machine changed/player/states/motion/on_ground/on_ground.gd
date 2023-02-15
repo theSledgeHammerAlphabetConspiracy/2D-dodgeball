@@ -7,10 +7,10 @@ var velocity = Vector2()
 
 func handle_input(event):
 	if event.is_action_pressed("jump"+owner.player_team) and owner.get_node("catchcooldown").is_stopped():
-		#owner.hasball == false:
-		emit_signal("finished", "catch")
-		#owner.hasball == true:
-		#throw
+		if owner.hasball == false:
+			emit_signal("finished", "catch")
+		elif owner.hasball == true:
+			emit_signal("finished", "throw")
 		
 		
 		

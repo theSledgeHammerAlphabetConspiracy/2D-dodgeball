@@ -20,6 +20,7 @@ onready var attack_DMG_amount: int = 0
 var string_series: int = 0
 
 var height: float = 0.0
+var hasball: bool = false
 
 func _ready():
 	add_to_group("player"+player_team)
@@ -63,9 +64,10 @@ func animate_jump_height(delta,vertical_speed):
 func _on_Timer_timeout():#hitstop timer
 	#print("hitstop over")
 	$AnimationPlayer.play()
-
-
-
+	
+func _getball():
+	hasball = true
+	$BodyPivot/body/hasball.show()
 	
 func _collision(ball):
 	if cValue == 0:
@@ -76,7 +78,6 @@ func _collision(ball):
 	elif cValue == 2:
 		ball._bounce(get_global_position())
 	
-
-
 func _on_catchcooldown_timeout():
 	pass # Replace with function body.
+	

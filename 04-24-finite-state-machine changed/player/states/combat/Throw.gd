@@ -11,6 +11,13 @@ var locked_direction:= Vector2()
 export var locked_speed:float=0.0
 var chargespeed:float=0.0
 
+
+
+var ball = preload("res://stuff i added/dodgeball only/ball.tscn")
+var target: Vector2 = Vector2(0,0)
+
+# get rid of the transition to idle after the shoot after testing the catch
+var input_direction 
 func enter():
 	advance = false
 	chargeable=false#this fixes the animation bug
@@ -19,18 +26,39 @@ func enter():
 	velocity = Vector2()
 	owner.string_series = 0 #end of series
 	chargespeed = 0.0
-	
-	owner.attack_KB_dir = Vector2(owner.get_node("BodyPivot").get_scale().x,0)
-	owner.attack_KB_amount = 2000
-	owner.attack_KB_type = 6#blowback
+#
+#	owner.attack_KB_dir = Vector2(owner.get_node("BodyPivot").get_scale().x,0)
+#	owner.attack_KB_amount = 2000
+#	owner.attack_KB_type = 6#blowback
 	
 	#this allows for the second attack in the string to attack behind the player.. this might be bad
-	#var input_direction = get_input_direction()
+	input_direction = get_input_direction()
+	update_look_direction(input_direction)
+	#locked_direction = Vector2(owner.get_node("BodyPivot").get_scale().x,0)
 	#update_look_direction(input_direction)
-	locked_direction = Vector2(owner.get_node("BodyPivot").get_scale().x,0)
-	#update_look_direction(input_direction)
-	update_look_direction(locked_direction)
+	#update_look_direction(locked_direction)
 	owner.get_node("AnimationPlayer").play("throw")
+
+func _shoot():
+	var shot = ball.instance()
+	shot.global_position = owner.get_node('BodyPivot/handspivot/ballpos').global_position
+	shot.team = owner.player_team
+	shot.throwDir = target
+	shot.thrower = self
+	shot.speed = rand_range(10,30)
+	shot.state = 0
+	print(target)
+	#$Label.set_text($Label.get_text()+"\n"+str(shot.speed))
+	get_parent().add_child(shot)
+
+func _aim():
+	input_direction = get_input_direction()
+	update_look_direction(input_direction)
+	if owner.get_node('BodyPivot/handspivot/targetsight').get_overlapping_bodies().size() >= 1:
+		target = Vector2(owner.get_node('BodyPivot/handspivot/targetsight').get_overlapping_bodies()[0].get_global_position()-owner.get_global_position()).normalized()
+	else:
+		target = owner.look_direction
+	#print(owner.look_direction)
 
 func handle_input(event):
 	if event.is_action_pressed("special"+owner.player_team):
@@ -38,9 +66,9 @@ func handle_input(event):
 	#return .handle_input(event)
 #
 func update(delta):
-	print(chargeable)
+	print(owner.look_direction)
 	#this is the basic low kick isnt charageable
-	if Input.is_action_pressed("B"+owner.player_team) and chargeable == true:
+	if Input.is_action_pressed("jump"+owner.player_team) and chargeable == true:
 		owner.get_node("AnimationPlayer").stop(false)
 		chargespeed +=10.0
 	else:

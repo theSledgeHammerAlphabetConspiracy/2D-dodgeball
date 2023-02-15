@@ -15,6 +15,8 @@ onready var attack_KB_amount: float = 200
 onready var attack_KB_type: int = 0
 onready var attack_DMG_amount: int = 0
 
+export var cValue: int = 0
+
 func _ready():
 	add_to_group("player"+player_team)
 	#print(get_tree().get_nodes_in_group('player1'))
@@ -38,3 +40,15 @@ func set_dead(value):
 func set_look_direction(value):
 	look_direction = value
 	emit_signal("direction_changed", value)
+	
+func _collision(ball):
+	if cValue == 0:
+		$StateMachine._change_state("hitstop")
+		knockback_amount = 100
+		knockback_direction = Vector2(1,0)
+		knockback_type = 0
+		#$AnimationPlayer.play("getHit")
+	elif cValue == 1:
+		ball.queue_free()
+	elif cValue == 2:
+		ball._bounce(get_global_position())

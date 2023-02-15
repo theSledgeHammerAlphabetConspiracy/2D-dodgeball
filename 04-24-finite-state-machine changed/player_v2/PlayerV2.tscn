@@ -1,4 +1,4 @@
-[gd_scene load_steps=150 format=2]
+[gd_scene load_steps=152 format=2]
 
 [ext_resource path="res://player_v2/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://player_v2/player_state_machine.gd" type="Script" id=2]
@@ -46,6 +46,7 @@
 [ext_resource path="res://assets/placeholder/body.png" type="Texture" id=44]
 [ext_resource path="res://assets/placeholder/handR.png" type="Texture" id=45]
 [ext_resource path="res://assets/placeholder/hand.png" type="Texture" id=46]
+[ext_resource path="res://assets/ball.png" type="Texture" id=47]
 
 [sub_resource type="Animation" id=100]
 length = 0.001
@@ -108,6 +109,30 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("BodyPivot/body/hasball:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("StateMachine/Throw:chargeable")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=101]
@@ -224,6 +249,99 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=105]
+resource_name = "throw"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyPivot/handspivot/hands/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 80, -20 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyPivot/handspivot/hands/Sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyPivot/handspivot/hands/Sprite2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -48, -60 ), Vector2( -43, -4 ), Vector2( 43, 58 ), Vector2( -7, 30 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BodyPivot/handspivot/hands/Sprite2:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 90.0, 90.0, -135.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BodyPivot/body/hasball:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("StateMachine/Throw:chargeable")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath("StateMachine/Throw")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "_aim"
+}, {
+"args": [  ],
+"method": "_shoot"
+} ]
 }
 
 [sub_resource type="Animation" id=103]
@@ -1922,6 +2040,7 @@ use_filter = true
 font_data = ExtResource( 15 )
 
 [node name="PlayerV2" type="KinematicBody2D"]
+collision_layer = 33
 collision_mask = 5
 script = ExtResource( 1 )
 __meta__ = {
@@ -1993,6 +2112,7 @@ script = ExtResource( 39 )
 
 [node name="Throw" type="Node" parent="StateMachine"]
 script = ExtResource( 42 )
+chargeable = true
 
 [node name="Catch" type="Node" parent="StateMachine"]
 script = ExtResource( 43 )
@@ -2002,6 +2122,7 @@ chargeable = true
 anims/RESET = SubResource( 100 )
 anims/catch = SubResource( 101 )
 anims/idle = SubResource( 102 )
+anims/throw = SubResource( 105 )
 anims/walk = SubResource( 103 )
 
 [node name="AnimationPlayerOLD" type="AnimationPlayer" parent="."]
@@ -2049,6 +2170,14 @@ z_index = 1
 texture = ExtResource( 44 )
 offset = Vector2( 0, -55 )
 
+[node name="hasball" type="Sprite" parent="BodyPivot/body"]
+visible = false
+position = Vector2( 0, -148 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 47 )
+region_enabled = true
+region_rect = Rect2( 3, 3, 26, 26 )
+
 [node name="handspivot" type="Position2D" parent="BodyPivot"]
 position = Vector2( 0, -17 )
 
@@ -2068,6 +2197,18 @@ position = Vector2( 45, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyPivot/handspivot/catchbox"]
 shape = SubResource( 104 )
+
+[node name="ballpos" type="Position2D" parent="BodyPivot/handspivot"]
+position = Vector2( 45, 0 )
+
+[node name="targetsight" type="Area2D" parent="BodyPivot/handspivot"]
+position = Vector2( 0, 17 )
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BodyPivot/handspivot/targetsight"]
+polygon = PoolVector2Array( 0, 0, 1300, -500, 1300, 500 )
 
 [node name="WeaponPivot" type="Position2D" parent="."]
 visible = false

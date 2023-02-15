@@ -3,12 +3,17 @@ extends Area2D
 
 var speed : float = 10.0
 #var speed_range = range(10,30)
-var thrower
+var thrower #maybe removeable
+var team
+
+var throwDir: Vector2 = Vector2(0,0)
 
 var state = 2
 var target: Vector2 = Vector2(0,0)
 var dir:= Vector2(0,0)
 var Zvel:= 0
+
+var grabbed_by = null
 
 func _ready():
 	pass
@@ -17,7 +22,8 @@ func _ready():
 
 func _physics_process(delta):
 	if state == 0:#throw
-		move_local_x(speed*-1)
+		move_local_x(speed*throwDir.x)
+		move_local_y(speed*throwDir.y)
 	if state == 1:#bounce to target
 		dir = Vector2(target - get_global_position()).normalized()
 		move_local_x(dir.x)
@@ -38,6 +44,8 @@ func _physics_process(delta):
 			Zvel = (Zvel/1.5) *-1
 		clamp($ball.position.y,-10000,0)
 		#print('done')
+	#if state == 3:#grabbed
+		
 		
 func _on_Node2D_body_entered(body):
 	if state == 0:
@@ -46,8 +54,10 @@ func _on_Node2D_body_entered(body):
 		else:
 			body._collision(self)
 	elif state == 2:
-		pass
-		#pickedup state 3
+		body._getball()
+		queue_free()
+		#grabbed_by = body
+		#state = 3
 
 func _bounce(from_pos):
 	target = from_pos+ Vector2(rand_range(20*speed,1000*speed),rand_range(-1000*speed,1000*speed))
