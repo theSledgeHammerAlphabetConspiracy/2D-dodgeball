@@ -73,6 +73,7 @@ func _collision(ball):
 	if cValue == 0:
 		$StateMachine._change_state("hitstop")
 		#$AnimationPlayer.play("getHit")
+		ball._bounce(get_global_position())
 	elif cValue == 1:
 		ball.queue_free()
 	elif cValue == 2:

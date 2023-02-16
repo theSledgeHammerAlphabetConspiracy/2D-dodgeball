@@ -47,6 +47,7 @@ func _collision(ball):
 		knockback_amount = 100
 		knockback_direction = Vector2(1,0)
 		knockback_type = 0
+		ball._bounce(get_global_position())
 		#$AnimationPlayer.play("getHit")
 	elif cValue == 1:
 		ball.queue_free()

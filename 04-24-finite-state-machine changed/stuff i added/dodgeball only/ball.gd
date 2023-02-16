@@ -44,23 +44,31 @@ func _physics_process(delta):
 			Zvel = (Zvel/1.5) *-1
 		clamp($ball.position.y,-10000,0)
 		#print('done')
-	#if state == 3:#grabbed
-		
 		
 func _on_Node2D_body_entered(body):
-	if state == 0:
-		if body == thrower:
-			pass
-		else:
-			body._collision(self)
-	elif state == 2:
-		body._getball()
-		queue_free()
+	if body.is_in_group("wall"):
+		_bounce(body.get_global_position())
+	else:
+		if state == 0:
+			if body == thrower:
+				pass
+			else:
+				body._collision(self)
+		elif state == 2:
+			body._getball()
+			queue_free()
 		#grabbed_by = body
 		#state = 3
 
 func _bounce(from_pos):
-	target = from_pos+ Vector2(rand_range(20*speed,1000*speed),rand_range(-1000*speed,1000*speed))
+	var bouncedir = 0
+	#print(throwDir.x)
+	if throwDir.x > 0.0:
+		bouncedir = -1
+	elif throwDir.x < 0.0:
+		bouncedir = 1
+	print(bouncedir)
+	target = from_pos + (Vector2(bouncedir,1)*Vector2(rand_range(20*speed,1000*speed),rand_range(-1000*speed,1000*speed)))
 	#ball.target = get_global_position()+Vector2(3000,3000)
 	Zvel = speed * rand_range(1,3) * -1
 	state = 1

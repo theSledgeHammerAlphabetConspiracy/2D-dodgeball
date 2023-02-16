@@ -1,4 +1,4 @@
-[gd_scene load_steps=152 format=2]
+[gd_scene load_steps=154 format=2]
 
 [ext_resource path="res://player_v2/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://player_v2/player_state_machine.gd" type="Script" id=2]
@@ -199,6 +199,13 @@ tracks/4/keys = {
 "update": 1,
 "values": [ 0, 1, 2 ]
 }
+
+[sub_resource type="Animation" id=106]
+resource_name = "hitstop"
+length = 0.2
+
+[sub_resource type="Animation" id=107]
+resource_name = "hitstunGr"
 
 [sub_resource type="Animation" id=102]
 resource_name = "idle"
@@ -2112,7 +2119,6 @@ script = ExtResource( 39 )
 
 [node name="Throw" type="Node" parent="StateMachine"]
 script = ExtResource( 42 )
-chargeable = true
 
 [node name="Catch" type="Node" parent="StateMachine"]
 script = ExtResource( 43 )
@@ -2121,6 +2127,8 @@ chargeable = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 100 )
 anims/catch = SubResource( 101 )
+anims/hitstop = SubResource( 106 )
+anims/hitstunGr = SubResource( 107 )
 anims/idle = SubResource( 102 )
 anims/throw = SubResource( 105 )
 anims/walk = SubResource( 103 )

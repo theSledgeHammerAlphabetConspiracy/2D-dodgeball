@@ -47,8 +47,9 @@ func _shoot():
 	shot.thrower = self
 	shot.speed = rand_range(10,30)
 	shot.state = 0
-	print(target)
+	#print(target)
 	#$Label.set_text($Label.get_text()+"\n"+str(shot.speed))
+	owner.hasball = false
 	get_parent().add_child(shot)
 
 func _aim():
@@ -56,8 +57,10 @@ func _aim():
 	update_look_direction(input_direction)
 	if owner.get_node('BodyPivot/handspivot/targetsight').get_overlapping_bodies().size() >= 1:
 		target = Vector2(owner.get_node('BodyPivot/handspivot/targetsight').get_overlapping_bodies()[0].get_global_position()-owner.get_global_position()).normalized()
+		#print(owner.get_node('BodyPivot/handspivot/targetsight').get_overlapping_bodies()[0])
 	else:
 		target = owner.look_direction
+	
 	#print(owner.look_direction)
 
 func handle_input(event):
@@ -66,11 +69,12 @@ func handle_input(event):
 	#return .handle_input(event)
 #
 func update(delta):
-	print(owner.look_direction)
+	#print(owner.look_direction)
 	#this is the basic low kick isnt charageable
 	if Input.is_action_pressed("jump"+owner.player_team) and chargeable == true:
 		owner.get_node("AnimationPlayer").stop(false)
 		chargespeed +=10.0
+		_aim()
 	else:
 		if chargespeed >= 600:
 			chargespeed = 600
