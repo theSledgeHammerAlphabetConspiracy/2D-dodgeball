@@ -70,6 +70,7 @@ func _getball():
 	$BodyPivot/body/hasball.show()
 	
 func _collision(ball):
+	print(cValue)
 	if cValue == 0:
 		$StateMachine._change_state("hitstop")
 		#$AnimationPlayer.play("getHit")

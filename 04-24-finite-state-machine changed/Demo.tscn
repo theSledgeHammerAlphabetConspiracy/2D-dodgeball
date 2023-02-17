@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://player_v2/PlayerV2.tscn" type="PackedScene" id=1]
 [ext_resource path="res://fonts/SourceCodePro-Bold.ttf" type="DynamicFontData" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://my scripts/Demo.gd" type="Script" id=12]
 [ext_resource path="res://debug/states-stack-displayer.gd" type="Script" id=13]
 [ext_resource path="res://stuff i added/dodgeball only/ball.tscn" type="PackedScene" id=14]
+[ext_resource path="res://stuff i added/ref/ref.tscn" type="PackedScene" id=15]
 
 [sub_resource type="DynamicFont" id=1]
 size = 20
@@ -30,13 +31,6 @@ width = 1250
 [sub_resource type="GradientTexture" id=7]
 gradient = SubResource( 5 )
 width = 530
-
-[sub_resource type="Gradient" id=9]
-colors = PoolColorArray( 1, 0, 0, 1, 0, 0.0390625, 1, 1 )
-
-[sub_resource type="GradientTexture" id=10]
-gradient = SubResource( 9 )
-width = 60
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 20, 360 )
@@ -129,14 +123,13 @@ scale = Vector2( 1, 10 )
 texture = SubResource( 6 )
 
 [node name="ball" parent="YSort" instance=ExtResource( 14 )]
-position = Vector2( 686, 388 )
+position = Vector2( 640, 401 )
 scale = Vector2( 2.5, 2.5 )
 
-[node name="ref" type="Sprite" parent="YSort"]
-position = Vector2( 640, 164 )
-scale = Vector2( 1, 200 )
-texture = SubResource( 10 )
-offset = Vector2( 0, -0.5 )
+[node name="ref" parent="YSort" instance=ExtResource( 15 )]
+
+[node name="ballpos" type="Position2D" parent="YSort/ref"]
+position = Vector2( 0, 0.27 )
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="."]
 position = Vector2( 548, 14 )

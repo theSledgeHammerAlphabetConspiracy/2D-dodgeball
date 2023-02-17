@@ -2228,6 +2228,7 @@ position = Vector2( 110, 0 )
 [node name="Sword" parent="WeaponPivot/Offset" instance=ExtResource( 12 )]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 0, 10 )
 polygon = PoolVector2Array( -20, 0, -20, -20, 20, -20, 20, 0 )
 
 [node name="Health" parent="." instance=ExtResource( 13 )]

@@ -46,6 +46,7 @@ func _physics_process(delta):
 		#print('done')
 		
 func _on_Node2D_body_entered(body):
+	#print(body)
 	if body.is_in_group("wall"):
 		_bounce(body.get_global_position())
 	else:

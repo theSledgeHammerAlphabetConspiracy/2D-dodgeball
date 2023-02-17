@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://stuff i added/ref/ref.gd" type="Script" id=1]
+
+[sub_resource type="Gradient" id=9]
+colors = PoolColorArray( 1, 0, 0, 1, 0, 0.0390625, 1, 1 )
+
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
+width = 60
+
+[node name="ref" type="Sprite"]
+position = Vector2( 640, 164 )
+scale = Vector2( 1, 200 )
+texture = SubResource( 10 )
+offset = Vector2( 0, -0.5 )
+script = ExtResource( 1 )
