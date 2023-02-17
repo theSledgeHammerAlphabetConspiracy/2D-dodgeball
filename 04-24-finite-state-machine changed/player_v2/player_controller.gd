@@ -48,14 +48,11 @@ func set_look_direction(value):
 	emit_signal("direction_changed", value)
 	
 func _on_ABox_area_entered(area):
-	#print('hit')
 	$AnimationPlayer.stop(false)
 	$Timer.start()
 	area.owner.take_damage(self, attack_DMG_amount, attack_KB_dir, attack_KB_amount, attack_KB_type)
 
 func animate_jump_height(delta,vertical_speed):
-	#print(height)
-	#vertical_speed -= GRAVITY * delta
 	height += vertical_speed * delta
 	height = max(0.0,height)
 
@@ -70,10 +67,11 @@ func _getball():
 	$BodyPivot/body/hasball.show()
 	
 func _collision(ball):
-	print(cValue)
+	#print(cValue)
+	#var stupid = Vector2(get_global_position()-ball.get_global_position()).normalized().angle()
+	#print(rad2deg(stupid))
 	if cValue == 0:
 		$StateMachine._change_state("hitstop")
-		#$AnimationPlayer.play("getHit")
 		ball._bounce(get_global_position())
 	elif cValue == 1:
 		ball.queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=154 format=2]
+[gd_scene load_steps=155 format=2]
 
 [ext_resource path="res://player_v2/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://player_v2/player_state_machine.gd" type="Script" id=2]
@@ -2041,6 +2041,9 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=104]
 extents = Vector2( 20, 20 )
 
+[sub_resource type="RectangleShape2D" id=108]
+extents = Vector2( 25, 20 )
+
 [sub_resource type="DynamicFont" id=4]
 size = 20
 use_filter = true
@@ -2227,9 +2230,8 @@ position = Vector2( 110, 0 )
 
 [node name="Sword" parent="WeaponPivot/Offset" instance=ExtResource( 12 )]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( 0, 10 )
-polygon = PoolVector2Array( -20, 0, -20, -20, 20, -20, 20, 0 )
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 108 )
 
 [node name="Health" parent="." instance=ExtResource( 13 )]
 
