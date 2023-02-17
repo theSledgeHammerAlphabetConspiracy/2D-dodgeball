@@ -2174,7 +2174,6 @@ animation = "idle"
 
 [node name="body" type="Sprite" parent="BodyPivot"]
 scale = Vector2( 0.5, 0.5 )
-z_index = 1
 texture = ExtResource( 44 )
 offset = Vector2( 0, -55 )
 

@@ -44,6 +44,7 @@ func _shoot():
 	shot.global_position = owner.get_node('BodyPivot/handspivot/ballpos').global_position
 	shot.team = owner.player_team
 	shot.throwDir = target
+	#shot.throwDir = Vector2(1,0)
 	shot.thrower = self
 	shot.speed = rand_range(10,30)
 	shot.state = 0
