@@ -17,7 +17,8 @@ func _shoot_at_active():
 	shot.global_position = get_node('ballpos').global_position
 	shot.team = player_team
 	#target first - self 
-	shot.throwDir = Vector2(get_node('/root/Demo/YSort/PlayerV2').get_global_position() - get_global_position()).normalized()
+	#this works but is kinda weird
+	shot.throwDir = Vector2((get_node('/root/Demo/YSort/PlayerV2').get_global_position()-Vector2(0,50)) - get_global_position()).normalized()
 	#shot.throwDir = Vector2(1,0)
 	shot.thrower = self
 	shot.speed = 10#rand_range(10,30)
