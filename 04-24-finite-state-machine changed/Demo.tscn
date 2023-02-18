@@ -124,7 +124,6 @@ texture = SubResource( 6 )
 
 [node name="ball" parent="YSort" instance=ExtResource( 14 )]
 position = Vector2( 640, 401 )
-scale = Vector2( 2.5, 2.5 )
 
 [node name="ref" parent="YSort" instance=ExtResource( 15 )]
 

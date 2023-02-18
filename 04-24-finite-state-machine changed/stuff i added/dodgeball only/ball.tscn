@@ -4,7 +4,6 @@
 [ext_resource path="res://stuff i added/dodgeball only/ball.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 12.0
 
 [node name="Node2D" type="Area2D"]
 collision_layer = 49
@@ -13,6 +12,7 @@ script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 modulate = Color( 1, 0, 0, 1 )
+scale = Vector2( 2.5, 2.5 )
 shape = SubResource( 1 )
 
 [node name="shadow" type="Polygon2D" parent="."]
@@ -21,6 +21,7 @@ polygon = PoolVector2Array( 0, -10, 10, 0, 0, 10, -10, 0 )
 
 [node name="ball" type="Sprite" parent="."]
 position = Vector2( 0, -32 )
+scale = Vector2( 2.5, 2.5 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -15 )
 region_enabled = true

@@ -69,7 +69,7 @@ func _getball():
 func _collision(ball):
 	#print(cValue)
 	var stupid = Vector2(get_global_position()-ball.get_global_position()).normalized()
-	#print(stupid.dot(look_direction))
+	print(stupid.dot(look_direction))
 	if stupid.dot(look_direction) < -0.8:
 		if cValue == 0:
 			$StateMachine._change_state("hitstop")
