@@ -4,6 +4,7 @@
 [ext_resource path="res://stuff i added/dodgeball only/ball.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
+radius = 12.0
 
 [node name="Node2D" type="Area2D"]
 collision_layer = 49

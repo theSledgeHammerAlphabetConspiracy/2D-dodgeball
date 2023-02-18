@@ -68,14 +68,19 @@ func _getball():
 	
 func _collision(ball):
 	#print(cValue)
-	#var stupid = Vector2(get_global_position()-ball.get_global_position()).normalized().angle()
-	#print(rad2deg(stupid))
-	if cValue == 0:
+	var stupid = Vector2(get_global_position()-ball.get_global_position()).normalized()
+	#print(stupid.dot(look_direction))
+	if stupid.dot(look_direction) < -0.8:
+		if cValue == 0:
+			$StateMachine._change_state("hitstop")
+			ball._bounce(get_global_position())
+		elif cValue == 1:
+			ball.queue_free()
+		elif cValue == 2:
+			ball._bounce(get_global_position())
+	else:
+		print('badangle')
 		$StateMachine._change_state("hitstop")
-		ball._bounce(get_global_position())
-	elif cValue == 1:
-		ball.queue_free()
-	elif cValue == 2:
 		ball._bounce(get_global_position())
 	
 func _on_catchcooldown_timeout():
